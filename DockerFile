@@ -1,0 +1,21 @@
+# Utiliser une image de base de Java
+FROM openjdk:11-jdk-slim
+
+# Définir le répertoire de travail dans le conteneur
+WORKDIR /app
+
+# Copier le fichier pom.xml et exécuter mvn dependency:go-offline pour télécharger les dépendances
+COPY pom.xml .
+RUN mvn dependency:go-offline
+
+# Copier le reste du code source
+COPY src /app/src
+
+# Compiler le projet
+RUN mvn package
+
+# Exposer le port sur lequel l'application sera accessible
+EXPOSE 9092
+
+# Lancer l'application
+CMD ["java", "-jar", "target/Projet-Final-Spring_v1.0-0.0.1-SNAPSHOT.jar"]
