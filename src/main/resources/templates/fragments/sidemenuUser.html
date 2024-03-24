@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="sidemenuUser"><!-- sidemenu.html -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Sidebar CSS */
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #555;
+            padding-top: 60px;
+        }
+
+        /* Links in the sidebar */
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #fff;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        /* Change color on hover */
+        .sidebar a:hover {
+            background-color: #333;
+        }
+
+        /* Content div */
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="/userDashboard"><i class="fas fa-home"></i> Accueil</a>
+        <a href="/userDashboard/emprunts"><i class="fas fa-book"></i> Mes emprunts</a>
+        <a href="/userDashboard/reservations"><i class="fas fa-calendar-check"></i> Mes Réservations</a>
+        <a href="/userDashboard/retours"><i class="fas fa-undo"></i> Retours</a>
+        <a href="/userDashboard/penalites"><i class="fas fa-exclamation-triangle"></i> Mes Penalites </a>
+       <a href="/userDashboard/notifications">
+    <i class="fas fa-bell"></i> Notifications
+    <span th:if="${unreadCount > 0}" class="badge badge-danger" th:text="${unreadCount}"></span>
+</a>
+
+    </div>
+
+    <!-- Bootstrap JS and Font Awesome JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</th:block>
+
+</html>

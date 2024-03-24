@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Custom CSS for Sidebar -->
+    <style>
+    .standard-image {
+        width: 200px; /* Largeur fixe pour toutes les images */
+        height: 320px; /* Hauteur fixe pour toutes les images */
+        object-fit: cover; /* Assure que l'image couvre toute la zone sans déformation */
+    }
+</style>
+
+</head>
+<body>
+   <div th:replace="fragments/sidemenuUser :: sidemenuUser"></div>
+   <div th:replace="fragments/topmenu :: topmenu"></div>
+    <!-- Main Content -->
+   <!-- Main Content -->
+<div class="content">
+    <div class="container">
+        <div class="row">
+					 <input type="text" id="searchInput" class="form-control mt-2 offset-8" placeholder="Filtrer les livres...">
+            <div class="col-12">
+		
+         <!-- Carrousel -->
+				<div id="bookCarousel" class="carousel slide" data-ride="carousel">
+				    <div class="carousel-inner">
+				        <div th:each="slide, stat : ${slides}" th:class="${stat.index == 0 ? 'carousel-item active' : 'carousel-item'}">
+				            <div class="row">
+				                <div th:each="livre : ${slide}" class="col-md-4 livre-item mt-3">
+				                    <img th:src="@{/userDashboard/livres/image/{id}(id=${livre.id})}" class="d-block w-100 standard-image" alt="Image du livre">
+				                    <div class="carousel-caption d-none d-md-block">
+				                        <h5 th:text="${livre.title}"></h5>
+				                        <p th:text="${livre.author}"></p>
+				                    </div>
+				                    <div class="text-center">
+                                        <a th:href="@{/userDashboard/livres/{id}(id=${livre.id})}" class="btn btn-secondary mt-2">En Savoir Plus</a>
+                                    </div>
+				                </div>
+				            </div>
+				        </div>
+				    </div>
+				    <a class="carousel-control-prev" href="#bookCarousel" role="button" data-slide="prev">
+				        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				        <span class="sr-only">Précédent</span>
+				    </a>
+				    <a class="carousel-control-next" href="#bookCarousel" role="button" data-slide="next">
+				        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+				        <span class="sr-only">Suivant</span>
+				    </a>
+				</div>
+
+            </div>
+        </div>
+<!-- Section pour les livres recommandés -->
+<div class="container mt-5">
+    <hr> <!-- Barre de séparation -->
+    <h2>Livres Recommandés Pour Vous</h2>
+    <div id="recommendedBooksCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div th:each="slide, stat : ${recommendedBooksSlides}" th:class="${stat.index == 0 ? 'carousel-item active' : 'carousel-item'}">
+                <div class="row">
+                    <div th:each="entry : ${slide}" class="col-md-4 mt-3">
+                        <img th:src="@{/userDashboard/livres/image/{id}(id=${entry.key.id})}" class="d-block w-100 standard-image" alt="Image du livre">
+                        <div class="text-center">
+                            <h5 th:text="${entry.key.title}"></h5>
+                            <p th:text="${entry.key.author}"></p>
+                            <p><i class="fas fa-star"></i> Note moyenne : <span th:text="${entry.value}"></span></p>
+                            <a th:href="@{/userDashboard/livres/{id}(id=${entry.key.id})}" class="btn btn-secondary mt-2">En Savoir Plus</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+          <!-- Contrôles de navigation -->
+        <a class="carousel-control-prev" href="#recommendedBooksCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Précédent</span>
+        </a>
+        <a class="carousel-control-next" href="#recommendedBooksCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Suivant</span>
+        </a>
+    </div>
+</div>
+
+
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#searchInput').on('input', function() {
+        var query = $(this).val().toLowerCase();
+        $('.livre-item').each(function() {
+            var titre = $(this).find('h5').text().toLowerCase();
+            var auteur = $(this).find('p').text().toLowerCase();
+            if (titre.includes(query) || auteur.includes(query)) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+});
+</script>
+
+    <!-- Bootstrap JS and Font Awesome JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

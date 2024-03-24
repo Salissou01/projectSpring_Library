@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Livres</title>
+    <!-- Inclure vos feuilles de style CSS et vos bibliothèques JavaScript ici -->
+    <!-- Exemple : -->
+    <link rel="stylesheet" th:href="@{/css/livre.css}" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<style>
+	/* Styles pour la pagination */
+.pagination {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.pagination li a {
+    text-decoration: none;
+    color: #333;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.pagination li a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Styles pour le lien actif */
+.pagination li.active a {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+/* Styles pour les liens désactivés */
+.pagination li.disabled a {
+    color: #ccc;
+    pointer-events: none;
+}
+
+</style>
+</head>
+
+<body>
+	
+    <div th:replace="fragments/sidemenu :: sidemenu"></div>
+ <div th:replace="fragments/topmenu :: topmenu"></div>
+    <div class="content">
+        <div class="container mt-3">
+            <h1 class="offset-5">Liste des Livres</h1>
+            <div class="input-group mb-3">
+        <input type="text" class="form-control offset-8" id="searchInput" placeholder="Rechercher un livre...">
+    </div>
+            <!-- Tableau pour afficher la liste des livres -->
+            <div class=" mt-4 ">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <table id="livresTable" class="table table-bordered">
+								<!-- Bouton pour ajouter un nouveau livre -->
+            <div class="row  offset-9">
+                <div class="col-md-12">
+                    <a href="/adminDashboard/livres/add" class="btn btn-primary"><i class="fas fa-plus"></i> Nouveau Livre</a>
+                </div>
+            </div>
+                                <thead>
+                                    <tr>
+                                        <th>Titre</th>
+                                        <th>Auteur</th>
+                                        <th>ISBN</th>
+                                       
+                                        <th>Genre</th>
+                                        <th>Copies Disponibles</th>
+                                        <th>Actions</th> <!-- Nouvelle colonne pour les actions -->
+                                        <!-- Ajoutez d'autres colonnes si nécessaire -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Utilisez Thymeleaf ou JavaScript pour parcourir et afficher les livres ici -->
+                                    <!-- Par exemple, vous pouvez utiliser Thymeleaf : -->
+                                    <tr th:each="livre : ${livres}">
+                                        <td th:text="${livre.title}">Titre</td>
+                                        <td th:text="${livre.author}">Auteur</td>
+                                        <td th:text="${livre.ISBN}">ISBN</td>
+                                       
+                                        <td th:text="${livre.genre}">Genre</td>
+                                        <td th:text="${livre.availableCopies}">Copies Disponibles</td>
+                                        <td>
+                                            <!-- Ajoutez des icônes pour les actions -->
+                                            <a th:href="@{/adminDashboard/livres/edit/{id}(id=${livre.id})}" title="Modifier"><i class="fas fa-edit"></i></a>
+                                            <a href="/adminDashboard/livres" th:onclick="'confirmDelete(' + ${livre.id} + ')'" title="Supprimer"><i class="fas fa-trash"></i></a>
+                                            <a th:href="@{/adminDashboard/livres/details/{id}(id=${livre.id})}" title="Détails"><i class="fas fa-info-circle"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+       
+                        </div>
+                        
+                    </div>
+			     <div  class="mt-2" th:if="${livres.totalPages > 1}">
+			    <ul class="pagination">
+			        <li th:class="${livres.first} ? 'disabled'">
+			            <a th:href="@{/adminDashboard/livres(page=${livres.number - 1})}" th:if="${!livres.first}">Précédent</a>
+			        </li>
+			        <li th:each="pageNumber : ${#numbers.sequence(0, livres.totalPages - 1)}" th:class="${pageNumber == livres.number} ? 'active'">
+			            <a th:href="@{/adminDashboard/livres(page=${pageNumber})}">[[${pageNumber + 1}]]</a>
+			        </li>
+			        <li th:class="${livres.last} ? 'disabled'">
+			            <a th:href="@{/adminDashboard/livres(page=${livres.number + 1})}" th:if="${!livres.last}">Suivant</a>
+			        </li>
+			    </ul>
+			</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Incluez vos scripts personnalisés ici si nécessaire -->
+    <!-- Exemple : -->
+    <script th:src="@{/js/livres.js}"></script>
+
+    <!-- Placez ce code JavaScript dans votre vue -->
+
+</body>
+</html>

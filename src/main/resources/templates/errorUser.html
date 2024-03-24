@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Erreur</title>
+    <style>
+      .error-message {
+    background-color: #f8d7da; /* Fond rouge */
+    color: #721c24; /* Couleur du texte */
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 5px;
+    width: 50%; /* Largeur du fond */
+    height: 50px; /* Hauteur du fond */
+    margin: auto; /* Centrer le fond horizontalement */
+}
+
+        .back-button {
+            background-color: #007bff; /* Couleur du bouton */
+            color: white; /* Couleur du texte du bouton */
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="fragments/sidemenuUser :: sidemenuUser"></div>
+    <div th:replace="fragments/topmenu :: topmenu"></div>
+    <h1>Erreur</h1>
+    <p class="error-message" th:if="${errorMessage}" th:text="${errorMessage}"></p>
+    <button class="back-button fas fa-arrow-left offset-6 mt-6" onclick="goBack()">Retour</button>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

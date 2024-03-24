@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Pénalités</title>
+     <style>
+     
+        .pagination {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .pagination li {
+            margin: 0 5px;
+        }
+
+        .pagination li a {
+            text-decoration: none;
+            color: #333;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .pagination li a:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Styles pour le lien actif */
+        .pagination li.active a {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+
+        /* Styles pour les liens désactivés */
+        .pagination li.disabled a {
+            color: #ccc;
+            pointer-events: none;
+        }
+    </style>
+
+</head>
+<body>
+    <div th:replace="fragments/sidemenuUser :: sidemenuUser"></div>
+    <div th:replace="fragments/topmenu :: topmenu"></div>
+    <div class="content">
+        <div class="container mt-3">
+            <h1 class="offset-5">Liste des Pénalités</h1>
+          
+            <div class="mt-4">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Retour Associé</th>
+                                        <th>Montant</th>
+
+                                        <th>Statut Pénalité</th> 
+                                         <th>Actions</th> <!-- Utilisation du nom de colonne mis à jour -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="penalite : ${penalites}">
+
+                                       
+                                        <td th:text="${penalite.retour.id}"></td>
+                                         <td th:text="${penalite.montant}"></td>
+                                        <td th:text="${penalite.statutPenalite}"></td>
+                                        <td>
+                                <a th:href="@{/userDashboard/penalites/details(id=${penalite.id})}" class="btn btn-info btn-sm">
+                                    <i class="fas fa-info-circle"></i> Détails
+                                </a>
+                            </td> 
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+				           
+				<div class="mt-2" th:if="${penalites.totalPages > 1}">
+				    <ul class="pagination">
+				        <li th:class="${penalites.first} ? 'disabled'">
+				            <a th:href="@{/userDashboard/penalites(page=${penalites.number - 1})}" th:if="${!penalites.first}">Précédent</a>
+				        </li>
+				        <li th:each="pageNumber : ${#numbers.sequence(0, penalites.totalPages - 1)}" th:class="${pageNumber == penalites.number} ? 'active'">
+				            <a th:href="@{/userDashboard/penalites(page=${pageNumber})}">[[${pageNumber + 1}]]</a>
+				        </li>
+				        <li th:class="${penalites.last} ? 'disabled'">
+				            <a th:href="@{/userDashboard/penalites(page=${penalites.number + 1})}" th:if="${!penalites.last}">Suivant</a>
+				        </li>
+				    </ul>
+				</div>
+
+        </div>
+    </div>
+</body>
+</html>

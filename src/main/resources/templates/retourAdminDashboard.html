@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Retours</title>
+    <style>
+        
+        .pagination {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .pagination li {
+            margin: 0 5px;
+        }
+
+        .pagination li a {
+            text-decoration: none;
+            color: #333;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .pagination li a:hover {
+            background-color: #f1f1f1;
+        }
+
+     
+        .pagination li.active a {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+
+     
+        .pagination li.disabled a {
+            color: #ccc;
+            pointer-events: none;
+        }
+    </style>
+   
+</head>
+<body>
+    <div th:replace="fragments/sidemenu :: sidemenu"></div>
+    <div th:replace="fragments/topmenu :: topmenu"></div>
+    <div class="content">
+        <div class="container mt-3">
+            <h1 class="offset-5">Liste des Retours</h1>
+             <div class="input-group mb-3">
+                <input type="text" class="form-control offset-8" id="searchInput" placeholder="Rechercher un retour...">
+            </div>
+            <!-- Tableau pour afficher la liste des retours -->
+            <div class="mt-4">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <table class="table table-bordered" id="retoursTable">
+								  <div class="row  offset-9">
+                <div class="col-md-12">
+                    <a href="/adminDashboard/retours/add" class="btn btn-primary"><i class="fas fa-plus"></i> Nouveau retour</a>
+                </div>
+            </div>
+                     
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Livre</th>
+            <th>Utilisateur</th>
+            <th>Date de Retour Prévue</th>
+            <th>Date de Retour Effectif</th>
+            <th>Note</th>
+            <th>Statut</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr th:each="retour : ${retours}">
+        <td th:text="${retour.id}"></td>
+        <td th:text="${retour.emprunt.livre.title}"></td>
+        <td th:text="${retour.emprunt.user.username}"></td>
+        <td th:text="${#dates.format(retour.emprunt.dateRetourPrevu, 'dd/MM/yyyy')}"></td>
+        <td th:text="${#dates.format(retour.dateRetourEffectif, 'dd/MM/yyyy')}"></td>
+        <td th:text="${retour.note}"></td>
+        <td th:text="${retour.statutRetour}"></td>
+        <td>
+			           <span th:if="${retour.statutRetour.name()=='EN_ATTENTE' && (retour.emprunt.dateRetourPrevu.after(retour.dateRetourEffectif) || retour.emprunt.dateRetourPrevu.equals(retour.dateRetourEffectif))}">
+			    <a th:href="@{/adminDashboard/retours/valider/confirm/{id}(id=${retour.id})}" class="btn btn-success">
+			        <i class="fas fa-check">Valider</i> 
+			    </a>
+			</span>
+
+            <span th:if="${retour.statutRetour.name()=='EN_ATTENTE' && retour.emprunt.dateRetourPrevu.before(retour.dateRetourEffectif)}">
+                <a th:href="@{/adminDashboard/retours/penalites/{id}(id=${retour.id})}">
+                    <i class="fas fa-exclamation-triangle" style="color:red;">Penaliser</i>
+                </a>
+            </span>
+        </td>
+    </tr>
+</tbody>
+
+</table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Pagination -->
+            <div class="mt-2" th:if="${retours.totalPages > 1}">
+                <ul class="pagination">
+                    <li th:class="${retours.first} ? 'disabled'">
+                        <a th:href="@{/adminDashboard/retours(page=${retours.number - 1})}" th:if="${!retours.first}">Précédent</a>
+                    </li>
+                    <li th:each="pageNumber : ${#numbers.sequence(0, retours.totalPages - 1)}" th:class="${pageNumber == retours.number} ? 'active'">
+                        <a th:href="@{/adminDashboard/retours(page=${pageNumber})}">[[${pageNumber + 1}]]</a>
+                    </li>
+                    <li th:class="${retours.last} ? 'disabled'">
+                        <a th:href="@{/adminDashboard/retours(page=${retours.number + 1})}" th:if="${!retours.last}">Suivant</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+		document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    const retoursTable = document.getElementById('retoursTable');
+    const tableRows = retoursTable.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+    searchInput.addEventListener('keyup', function() {
+        const searchValue = searchInput.value.toLowerCase();
+
+        for (let i = 0; i < tableRows.length; i++) {
+            const row = tableRows[i];
+            const rowText = row.textContent.toLowerCase();
+
+            if (rowText.includes(searchValue)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        }
+    });
+});
+
+	</script>
+</body>
+</html>

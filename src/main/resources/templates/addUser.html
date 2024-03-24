@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un utilisateur</title>
+   
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+       <style>
+        .form-group label {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            font-size: 0.9rem;
+            padding: 0.375rem 0.75rem;
+            max-width: 400px; 
+        }
+
+        .container {
+            max-width: 600px; 
+        }
+    </style>
+</head>
+<body>
+   
+    <div th:replace="fragments/sidemenu :: sidemenu"></div>
+	 <div th:replace="fragments/topmenu :: topmenu"></div>
+    <div class="container mt-5 offset-3">
+        <h2 class="mb-4"><i class="fas fa-user-plus"></i> Ajouter un nouvel utilisateur</h2>
+       <div th:if="${successMessage}" class="alert alert-success" role="alert">
+    <span th:text="${successMessage}"></span>
+</div>
+        <form method="post" th:action="@{/adminDashboard/users/add}">
+				<div class="form-group">
+			    <label for="cin"><i class="fas fa-id-card"></i> CIN/Passport</label>
+			    <input type="text" class="form-control" id="cin" th:field="${user.CIN}">
+			</div>
+			<div class="form-group">
+			    <label for="username"><i class="fas fa-user"></i> Nom d'utilisateur</label>
+			    <input type="text" class="form-control" id="username" th:field="${user.username}" required>
+			</div>
+			<div class="form-group">
+			    <label for="password"><i class="fas fa-lock"></i> Mot de passe</label>
+			    <input type="password" class="form-control" id="password" th:field="${user.password}" required>
+			</div>
+			<div class="form-group">
+			    <label for="email"><i class="fas fa-envelope"></i> Email</label>
+			    <input type="email" class="form-control" id="email" th:field="${user.email}" required>
+			</div>
+			<div class="form-group">
+			    <label for="telephone"><i class="fas fa-phone"></i> Téléphone</label>
+			    <input type="tel" class="form-control" id="telephone" th:field="${user.telephone}">
+			</div>
+			<div class="form-group">
+			    <label for="roles"><i class="fas fa-user-tag"></i> Rôle</label>
+			    <select class="form-control" id="roles" name="roles" th:field="${user.roles}" required>
+			        <option value="">Sélectionnez un rôle</option>
+			        <!-- Utilisez Thymeleaf pour parcourir la liste des rôles disponibles -->
+			        <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
+			    </select>
+			</div>
+
+
+          
+            <button type="submit" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Enregistrer</button>
+            <a href="/adminDashboard/users" class="btn btn-secondary"><i class="fas fa-times"></i> Annuler</a>
+        </form>
+    </div>
+     
+</body>
+</html>

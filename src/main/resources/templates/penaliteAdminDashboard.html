@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Pénalités</title>
+    <!-- Inclure vos feuilles de style CSS et vos bibliothèques JavaScript ici -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Styles pour la pagination */
+        .pagination {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .pagination li {
+            margin: 0 5px;
+        }
+
+        .pagination li a {
+            text-decoration: none;
+            color: #333;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .pagination li a:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Styles pour le lien actif */
+        .pagination li.active a {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+
+        /* Styles pour les liens désactivés */
+        .pagination li.disabled a {
+            color: #ccc;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="fragments/sidemenu :: sidemenu"></div>
+    <div th:replace="fragments/topmenu :: topmenu"></div>
+     <div class="content">
+    <div class="container mt-3">
+    <h2 class="mb-4 offset-4"><i class="fas fa-exclamation-circle"></i> Liste des Pénalités</h2>
+     <div class="input-group mb-3">
+                <input type="text" class="form-control offset-8" id="searchInput" placeholder="Rechercher une pénalité...">
+            </div>
+   
+        <div class="col-md-12">
+            <div class="card">
+               
+                <div class="card-body">
+                    <table class="table table-bordered" id="penalitesTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Montant</th>
+                                <th>UserCIN</th>
+                                <th>Statut Pénalité</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="penalite : ${penalites}">
+                                <td th:text="${penalite.id}"></td>
+                                
+                                <td th:text="${penalite.montant}"></td>
+                                 <td th:text="${penalite.retour.emprunt.user.CIN}"></td>
+                                <td th:text="${penalite.statutPenalite}"></td>
+                                <td>
+                                    <a th:if="${penalite.statutPenalite.name() == 'NON_PAYEE'}" th:href="@{/adminDashboard/penalites/payer(id=${penalite.id})}" class="btn btn-success btn-sm">
+                                        <i class="fas fa-money-bill-wave"></i> Payer
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pagination -->
+<div class="mt-2" th:if="${penalites.totalPages > 1}">
+    <ul class="pagination">
+        <li th:class="${penalites.first} ? 'disabled'">
+            <a th:href="@{/adminDashboard/penalites(page=${penalites.number - 1})}" th:if="${!penalites.first}">Précédent</a>
+        </li>
+        <li th:each="pageNumber : ${#numbers.sequence(0, penalites.totalPages - 1)}" th:class="${pageNumber == penalites.number} ? 'active'">
+            <a th:href="@{/adminDashboard/penalites(page=${pageNumber})}">[[${pageNumber + 1}]]</a>
+        </li>
+        <li th:class="${penalites.last} ? 'disabled'">
+            <a th:href="@{/adminDashboard/penalites(page=${penalites.number + 1})}" th:if="${!penalites.last}">Suivant</a>
+        </li>
+    </ul>
+</div>
+
+</div>
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    const penalitesTable = document.getElementById('penalitesTable');
+    const tableRows = penalitesTable.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+    searchInput.addEventListener('keyup', function() {
+        const searchValue = searchInput.value.toLowerCase();
+
+        for (let i = 0; i < tableRows.length; i++) {
+            const row = tableRows[i];
+            const rowText = row.textContent.toLowerCase();
+
+            if (rowText.includes(searchValue)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        }
+    });
+});
+
+</script>
+</body>
+</html>

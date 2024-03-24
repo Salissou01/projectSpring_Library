@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un livre</title>
+ 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+       
+        .form-group label {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            font-size: 0.9rem;
+            padding: 0.375rem 0.75rem;
+        }
+    </style>
+</head>
+<body>
+    
+    <div th:replace="fragments/sidemenu :: sidemenu"></div>
+	<div th:replace="fragments/topmenu :: topmenu"></div>
+    <div class="container offset-2">
+        <h2 class=""><i class="fas fa-book"></i> Ajouter un nouveau livre</h2>
+        <!-- Affichage de l'erreur -->
+        <div th:if="${error}" id="error" class="alert alert-danger" role="alert">
+            <p th:text="${error}"></p>
+        </div>
+       
+        <form method="post" th:action="@{/adminDashboard/livres/add}" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="title"><i class="fas fa-heading"></i> Titre</label>
+                <input type="text" class="form-control" id="title" th:field="${livre.title}" required>
+            </div>
+            <div class="form-group">
+                <label for="author"><i class="fas fa-user"></i> Auteur</label>
+                <input type="text" class="form-control" id="author" th:field="${livre.author}" required>
+            </div>
+            <div class="form-group">
+                <label for="ISBN"><i class="fas fa-barcode"></i> ISBN</label>
+                <input type="text" class="form-control" id="ISBN" th:field="${livre.ISBN}" required>
+            </div>
+            <div class="form-group">
+                <label for="publicationDate"><i class="fas fa-calendar-alt"></i> Date de publication</label>
+                <input type="date" class="form-control" id="publicationDate" th:field="${livre.publicationDate}" required>
+            </div>
+            <div class="form-group">
+                <label for="genre"><i class="fas fa-bookmark"></i> Genre</label>
+                <input type="text" class="form-control" id="genre" th:field="${livre.genre}" required>
+            </div>
+            <div class="form-group">
+                <label for="availableCopies"><i class="fas fa-box"></i> Nombre de copies</label>
+                <input type="number" class="form-control" min="0" id="availableCopies" th:field="${livre.availableCopies}" required>
+            </div>
+            <div class="form-group">
+                <label for="category"><i class="fas fa-bookmark"></i> Catégorie</label>
+                <select class="form-control" id="category" name="category" required>
+                    <option value="">Sélectionnez une catégorie</option>
+                    <!-- Utilisez Thymeleaf pour parcourir la liste des catégories disponibles -->
+                    <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="description"><i class="fas fa-info-circle"></i> Description</label>
+                <textarea class="form-control" id="description" th:field="${livre.description}" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="editeur"><i class="fas fa-user-edit"></i> Éditeur</label>
+                <input type="text" class="form-control" id="editeur" th:field="${livre.editeur}">
+            </div>
+            <div class="form-group">
+                <label for="nombrePages"><i class="fas fa-book-open"></i> Nombre de pages</label>
+                <input type="number" class="form-control" id="nombrePages" th:field="${livre.nombrePages}">
+            </div>
+            <div class="form-group">
+                <label for="imagePath"><i class="fas fa-image"></i> Charger une image (JPG, PNG, JPEG uniquement)</label>
+                <input type="file" class="form-control-file" id="imagePath" name="imagePath" accept=".jpg, .png, .jpeg">
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Enregistrer</button>
+<button type="button" class="btn btn-danger" onclick="window.history.back();"><i class="fas fa-times"></i> Annuler</button>
+
+        </form>
+    </div>
+    <script>
+    
+    setTimeout(function() {
+        var errorMessage = document.getElementById("error");
+        if (errorMessage) {
+            errorMessage.style.display = "none";
+        }
+    }, 2000); 
+    </script>
+</body>
+</html>

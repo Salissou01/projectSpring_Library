@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emprunter un livre</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .form-group label {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            font-size: 0.9rem;
+            padding: 0.375rem 0.75rem;
+            max-width: 400px; 
+        }
+
+        .container {
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="fragments/sidemenuUser :: sidemenuUser"></div>
+    <div th:replace="fragments/topmenu :: topmenu"></div>
+    <div class="container  offset-3">
+        <h2 class=""><i class="fas fa-book-open"></i> Emprunter un livre</h2>
+        <div th:if="${successMessage}" class="alert alert-success" role="alert">
+            <span th:text="${successMessage}"></span>
+        </div>
+        <div id="errorMessage" class="alert alert-danger" role="alert" style="display: none;">
+    <span id="errorText"></span>
+</div>
+
+        <input type="hidden" name="livreId" th:value="${livre.id}" />
+
+        <form method="post" th:action="@{/userDashboard/emprunts/add(livreId=${livre.id})}">
+			<input type="hidden" name="livreId" th:value="${livre.id}" />
+
+            <div class="form-group">
+                <label for="livreTitle"><i class="fas fa-book"></i> Titre du livre</label>
+                <input type="text" class="form-control" id="livreTitle" name="livreTitle" th:value="${livre.title}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="livreIsbn"><i class="fas fa-book"></i> ISBN du livre</label>
+                <input type="text" class="form-control" id="livreIsbn" name="livreIsbn" th:value="${livre.ISBN}" readonly>
+            </div>
+             <!-- Ajout du champ pour le nombre d'exemplaires empruntés -->
+            <div class="form-group">
+                <label for="nombreExemplaires"><i class="fas fa-book"></i> Nombre d'exemplaires empruntés</label>
+                <input type="number" class="form-control" id="nombreExemplaires" name="nombreExemplaires" min="1" required>
+            </div>
+            <div class="form-group">
+                <label for="userName"><i class="fas fa-user"></i> Nom de l'utilisateur</label>
+                <input type="text" class="form-control" id="userName" name="userName" th:value="${user.username}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="userCin"><i class="fas fa-id-card"></i> CIN de l'utilisateur</label>
+                <input type="text" class="form-control" id="userCin" name="userCin" th:value="${user.CIN}" readonly>
+            </div>
+          <div class="form-group">
+    <label for="dateEmprunt"><i class="fas fa-calendar-alt"></i> Date d'emprunt</label>
+    <input type="date" class="form-control" id="dateEmprunt" name="dateEmprunt" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" readonly required>
+</div>
+
+            <div class="form-group">
+                <label for="dateRetourPrevu"><i class="fas fa-calendar-alt"></i> Date de retour prévue</label>
+                <input type="date" class="form-control" id="dateRetourPrevu" name="dateRetourPrevu" required>
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Enregistrer</button>
+            <a href="/userDashboard" class="btn btn-secondary"><i class="fas fa-times"></i> Annuler</a>
+        </form>
+    </div>
+    
+
+</body>
+</html>

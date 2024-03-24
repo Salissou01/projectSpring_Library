@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retourner un livre</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+        .form-group label {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            font-size: 0.9rem;
+            padding: 0.375rem 0.75rem;
+            max-width: 400px; /* Ajoutez cette ligne pour limiter la largeur des champs de saisie */
+        }
+
+        .container {
+            max-width: 600px; /* Ajustez cette valeur pour contrôler la largeur du conteneur principal */
+        }
+    </style>
+</head>
+<body>
+	 <div th:replace="fragments/sidemenu :: sidemenu"></div>
+    <div th:replace="fragments/topmenu :: topmenu"></div>
+    <div class="container offset-3">
+        <h2><i class="fas fa-book-open"></i> Retourner un livre</h2>
+        <form method="post" th:action="@{/adminDashboard/retours/add/emprunts/select}">
+    <div class="form-group">
+        <label for="empruntId">Sélectionner un emprunt:</label>
+        <select id="empruntId" name="empruntId" class="form-control">
+            <option value="">Sélectionner un emprunt</option>
+            <option th:each="emprunt : ${emprunts}" th:value="${emprunt.id}" th:text="${emprunt.id}"></option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Sélectionner</button>
+</form>
+
+    </div>
+ 
+</body>
+</html>

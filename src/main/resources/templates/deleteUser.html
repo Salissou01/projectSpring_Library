@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation de suppression</title>
+    <!-- Inclure vos feuilles de style CSS et vos bibliothèques JavaScript ici -->
+    <!-- Exemple : -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Ajoutez du style personnalisé ici */
+        .confirmation-container {
+            margin-top: 50px;
+            text-align: center;
+        }
+        .confirmation-message {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        .btn-confirmation {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Include the side menu -->
+    <div th:replace="fragments/sidemenu :: sidemenu"></div>
+     <div th:replace="fragments/topmenu :: topmenu"></div>
+
+    <div class="container confirmation-container">
+        <h2>Confirmation de suppression</h2>
+        <!-- Affichez le message de confirmation avec le nom d'utilisateur -->
+     <p class="confirmation-message" th:if="${userToDelete != null}" th:text="'Êtes-vous sûr de vouloir supprimer l\'utilisateur ' + ${userToDelete.username} + ' ?'"></p>
+
+        <!-- Ajoutez des boutons "Oui" et "Non" pour la confirmation -->
+        <form method="post" th:action="@{/adminDashboard/users/delete/{id}(id=${userToDelete.id})}">
+            <input type="hidden" name="id" th:value="${userId}" />
+            <button type="submit" class="btn btn-danger btn-confirmation"><i class="fas fa-check"></i> Oui</button>
+        </form>
+        <a href="/adminDashboard/users" class="btn btn-secondary btn-confirmation"><i class="fas fa-times"></i> Non</a>
+    </div>
+</body>
+</html>

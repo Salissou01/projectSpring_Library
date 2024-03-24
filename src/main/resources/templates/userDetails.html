@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informations Utilisateur</title>
+    <!-- Inclure vos feuilles de style CSS et vos bibliothèques JavaScript ici -->
+    <!-- Exemple : -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Ajoutez du style personnalisé ici */
+        .info-label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Include the side menu -->
+    <div th:replace="fragments/sidemenu :: sidemenu"></div>
+ <div th:replace="fragments/topmenu :: topmenu"></div>
+    <div class="container mt-5 offset-3">
+        <h2 class="mb-4"><i class="fas fa-user"></i> Informations Utilisateur</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <p><span class="info-label">Nom d'utilisateur:</span> <span th:text="${user.username}"></span></p>
+                <p><span class="info-label">Email:</span> <span th:text="${user.email}"></span></p>
+                <p><span class="info-label">Téléphone:</span> <span th:text="${user.telephone}"></span></p>
+                <p><span class="info-label">CIN/Passport:</span> <span th:text="${user.CIN}"></span></p>
+                <p><span class="info-label">Mot de passe:</span> <span th:text="${user.password}"></span></p>
+                <p><span class="info-label">Rôle(s):</span>
+                    <span th:each="role : ${user.roles}" th:text="${role.name} + ' '"></span>
+                </p>
+                <p><span class="info-label">Statut du Compte:</span> <span th:text="${user.enabled ? 'Activé' : 'Désactivé'}"></span></p>
+                <!-- Ajoutez d'autres informations de l'utilisateur si nécessaire -->
+                <a href="/adminDashboard/users" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Retour</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

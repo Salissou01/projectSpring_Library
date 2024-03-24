@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajouter une nouvelle reservation</title>
+    <!-- Inclure Bootstrap CSS et Font Awesome pour le style et les icônes -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <style>
+        .form-group label {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            font-size: 0.9rem;
+            padding: 0.375rem 0.75rem;
+            max-width: 400px; /* Ajoutez cette ligne pour limiter la largeur des champs de saisie */
+        }
+
+        .container {
+            max-width: 600px; /* Ajustez cette valeur pour contrôler la largeur du conteneur principal */
+        }
+    </style>
+</head>
+<body>
+	 <div th:replace="fragments/sidemenu :: sidemenu"></div>
+    <div th:replace="fragments/topmenu :: topmenu"></div>
+    <!-- Menu et autres éléments de la page -->
+    <div class="container mt-5 offset-3">
+        <h1>Ajouter une nouvelle réservation</h1>
+        <form action="#" th:action="@{/adminDashboard/reservations/add}" th:object="${reservation}" method="post">
+            <div class="form-group">
+                <label for="user">Utilisateur:</label>
+                <select id="user" name="user" th:field="*{user}" class="form-control" required>
+                    <option value="">Sélectionner un utilisateur</option>
+                    <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.username}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="livre">Livre:</label>
+                <select id="livre" name="livre" th:field="*{livre}" class="form-control" required>
+                    <option value="">Sélectionner un livre</option>
+                    <option th:each="livre : ${livres}" th:value="${livre.id}" th:text="${livre.title}"></option>
+                </select>
+            </div>
+ <div class="form-group">
+    <label for="dateReservation"><i class="fas fa-calendar-alt"></i> Date de réservation</label>
+   <input type="date" class="form-control" id="dateReservation" name="dateReservation" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" required>
+</div>
+
+
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Enregistrer la réservation</button>
+        </form>
+    </div>
+</body>
+</html>

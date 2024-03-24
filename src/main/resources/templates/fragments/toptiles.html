@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<th:block th:fragment="toptiles">
+<head>
+    <title>Top Tiles</title>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+	
+.tile_count {
+    margin-top: 20px;
+}
+
+.tile_stats_count {
+    text-align: center;
+    padding: 10px;
+}
+
+.count_top {
+    font-size: 18px;
+    color: #333;
+}
+
+.count {
+    font-size: 24px;
+    color: #333;
+    margin-top: 10px;
+}
+
+.count.green {
+    color: #26B99F;
+}
+.count.cancel {
+    color:red;
+}
+
+	</style>
+</head>
+<body>
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="toptiles">
+    <div class="row tile_count">
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="fa fa-user"></i> Utilisateurs</span>
+            <div class="count green" id="userCount">0</div>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="fa fa-book"></i> Livres</span>
+            <div class="count" id="bookCount">0</div>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="fa fa-check"></i> Emprunts Empruntés</span>
+            <div class="count green" id="empruntConfirmedCount">0</div>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="fa fa-times"></i> Emprunts Rejetés</span>
+            <div class="count cancel" id="empruntRejeteCount">0</div>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="fa fa-hourglass-start"></i> Emprunts en Attente</span>
+            <div class="count" id="empruntEnAttenteCount">0</div>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="fa fa-reply"></i> Emprunts Retournés</span>
+            <div class="count green" id="empruntRetourneCount">0</div>
+        </div>
+        
+		        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+		    <span class="count_top"><i class="fa fa-clock"></i> Retours en Retard</span>
+		    <div class="count" id="retourEnRetardCount">0</div>
+		</div>
+		<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+		    <span class="count_top"><i class="fa fa-check-circle"></i> Retours à l'Heure</span>
+		    <div class="count green" id="retourALHeureCount">0</div>
+		</div>
+		<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+		    <span class="count_top"><i class="fa fa-hourglass-end"></i> Retours en Attente</span>
+		    <div class="count" id="retourEnAttenteCount">0</div>
+		</div>
+
+		    
+		    	<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+		    <span class="count_top"><i class="fa fa-hourglass-start"></i> Réservations en Attente</span>
+		    <div class="count" id="reservationEnAttenteCount">0</div>
+		</div>
+		<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+		    <span class="count_top"><i class="fa fa-check-circle"></i> Réservations Validées</span>
+		    <div class="count green" id="reservationValideCount">0</div>
+		</div>
+		<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+		    <span class="count_top"><i class="fa fa-reply"></i> Réservations Retirées</span>
+		    <div class="count" id="reservationRetireCount">0</div>
+		</div>
+		<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+		    <span class="count_top"><i class="fa fa-times"></i> Réservations Annulées</span>
+		    <div class="count cancel" id="reservationAnnuleCount">0</div>
+		</div>
+						<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+			    <span class="count_top"><i class="fa fa-dollar-sign"></i> Pénalités Payées</span>
+			    <div class="count green" id="penalitePayeeCount">0</div>
+			</div>
+			<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+			    <span class="count_top"><i class="fa fa-exclamation-triangle"></i> Pénalités Non Payées</span>
+			    <div class="count cancel" id="penaliteNonPayeeCount">0</div>
+			</div>
+
+
+    
+    </div>
+
+</div>
+
+<script th:src="@{/js/stats.js}"></script>
+
+</body>
+</th:block>
+</html>

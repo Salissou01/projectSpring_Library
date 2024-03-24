@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Emprunts</title>
+  
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+     
+        .pagination {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .pagination li {
+            margin: 0 5px;
+        }
+
+        .pagination li a {
+            text-decoration: none;
+            color: #333;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .pagination li a:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Styles pour le lien actif */
+        .pagination li.active a {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+
+      
+        .pagination li.disabled a {
+            color: #ccc;
+            pointer-events: none;
+        }
+        .action-icons {
+		    display: flex;
+		    align-items: center;
+		    justify-content: space-around;
+     }
+
+    </style>
+</head>
+
+<body>
+    <div th:replace="fragments/sidemenu :: sidemenu"></div>
+    <div th:replace="fragments/topmenu :: topmenu"></div>
+    <div class="content">
+        <div class="container mt-3">
+            <h1 class="offset-5">Liste des Emprunts</h1>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control offset-8" id="searchInput" placeholder="Rechercher un emprunt...">
+            </div>
+            <!-- Tableau pour afficher la liste des emprunts -->
+            <div class="mt-4">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <table id="empruntsTable" class="table table-bordered">
+															<!-- Bouton pour ajouter un nouveau livre -->
+            <div class="row  offset-9">
+                <div class="col-md-12">
+                    <a href="/adminDashboard/emprunts/add" class="btn btn-primary"><i class="fas fa-plus"></i> Nouvel Emprunt</a>
+                </div>
+            </div>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Livre</th>
+                                        <th>Utilisateur</th>
+                                        <th>Date d'Emprunt</th>
+                                        <th>Date de Retour Prévue</th>
+                                        <th>Statut</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="emprunt : ${emprunts}">
+                                        <td th:text="${emprunt.id}"></td>
+                                        <td th:text="${emprunt.livre.title}"></td>
+                                        <td th:text="${emprunt.user.username}"></td>
+                                        <td th:text="${#dates.format(emprunt.dateEmprunt, 'dd/MM/yyyy')}"></td>
+                                        <td th:text="${#dates.format(emprunt.dateRetourPrevu, 'dd/MM/yyyy')}"></td>
+                                        <td th:text="${emprunt.statut}"></td>
+					<td>
+					    <span th:if="${emprunt.statut.name() == 'EN_ATTENTE'}">
+					        <div class="action-icons">
+					            <a th:href="@{/adminDashboard/emprunts/validate/confirm/{id}(id=${emprunt.id})}" title="Valider"><i class="fas fa-check"></i></a>
+					            <a th:href="@{/adminDashboard/emprunts/reject/confirm/{id}(id=${emprunt.id})}" title="Rejeter"><i class="fas fa-times"></i></a>
+					        </div>
+					    </span>
+					</td>
+
+                       </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-2" th:if="${emprunts.totalPages > 1}">
+                <ul class="pagination">
+                    <li th:class="${emprunts.first} ? 'disabled'">
+                        <a th:href="@{/adminDashboard/emprunts(page=${emprunts.number - 1})}" th:if="${!emprunts.first}">Précédent</a>
+                    </li>
+                    <li th:each="pageNumber : ${#numbers.sequence(0, emprunts.totalPages - 1)}" th:class="${pageNumber == emprunts.number} ? 'active'">
+                        <a th:href="@{/adminDashboard/emprunts(page=${pageNumber})}">[[${pageNumber + 1}]]</a>
+                    </li>
+                    <li th:class="${emprunts.last} ? 'disabled'">
+                        <a th:href="@{/adminDashboard/emprunts(page=${emprunts.number + 1})}" th:if="${!emprunts.last}">Suivant</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Incluez vos scripts personnalisés ici si nécessaire -->
+    <script th:src="@{/js/emprunt.js}"></script>
+</body>
+</html>

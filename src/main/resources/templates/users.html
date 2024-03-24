@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users List</title>
+    <!-- Inclure vos feuilles de style CSS et vos bibliothèques JavaScript ici -->
+    <!-- Exemple : -->
+    <link rel="stylesheet" th:href="@{/css/adminDashboard.css}" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+	/* Styles pour la pagination */
+.pagination {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.pagination li a {
+    text-decoration: none;
+    color: #333;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.pagination li a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Styles pour le lien actif */
+.pagination li.active a {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+/* Styles pour les liens désactivés */
+.pagination li.disabled a {
+    color: #ccc;
+    pointer-events: none;
+}
+
+</style>
+</head>
+<body>
+    <div th:replace="fragments/sidemenu :: sidemenu"></div>
+ <div th:replace="fragments/topmenu :: topmenu"></div>
+    <div class="content">
+        <div class="container mt-3">
+            <h1 class="offset-5">List des Users</h1>
+             <!-- Afficher le message de succès si le nom d'utilisateur est présent dans le modèle -->
+    <div th:if="${username}" class="alert alert-success">
+        L'utilisateur <strong th:text="${username}"></strong> a été ajouté avec succès.
+    </div>
+             <div class="row mt-3 offset-8">
+                <div class="col-md-12">
+                    <!-- Champ de Recherche -->
+                    <input type="text" id="searchInput" class="form-control" placeholder="Rechercher...">
+                </div>
+            </div>
+            <!-- Contenu de la page des utilisateurs -->
+            <!-- Ajoutez un tableau pour afficher la liste des utilisateurs -->
+            <div class=" mt-4 offset-1">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                         <table id="usersTable" class="table table-bordered">
+							 <!-- Bouton pour créer un nouvel utilisateur -->
+            <div class="row offset-9">
+                <div class="col-md-12">
+                    <a href="/adminDashboard/users/add" class="btn btn-primary"><i class="fas fa-plus"></i> Nouvel Utilisateur</a>
+                </div>
+            </div>
+							    <thead>
+							        <tr>
+							            <th>CIN/Passport</th>
+							            <th>Username</th>
+							            <th>Email</th>
+							            <th>Telephone</th>
+							            <th>Actions</th> <!-- Nouvelle colonne pour les actions -->
+							            <!-- Ajoutez d'autres colonnes si nécessaire -->
+							        </tr>
+							    </thead>
+							    <tbody>
+							        <!-- Utilisez Thymeleaf ou JavaScript pour parcourir et afficher les utilisateurs ici -->
+							        <!-- Par exemple, vous pouvez utiliser Thymeleaf : -->
+							        <tr th:each="user : ${users}">
+							            <td th:text="${user.CIN}">CIN/Passport</td>
+							            <td th:text="${user.username}">Username</td>
+							            <td th:text="${user.email}">Email</td>
+							            <td th:text="${user.telephone}">Telephone</td>
+							            <td>
+							                <!-- Ajoutez des icônes pour les actions -->
+							               <a th:href="@{/adminDashboard/users/edit/{id}(id=${user.id})}" title="Modifier"><i class="fas fa-edit"></i></a>
+							<a th:href="@{/adminDashboard/users/delete/{id}(id=${user.id})}" title="Supprimer"><i class="fas fa-trash"></i></a>
+							                <a th:href="@{/adminDashboard/users/details/{id}(id=${user.id})}" title="Détails"><i class="fas fa-info-circle"></i></a>
+							            </td>
+							        </tr>
+							    </tbody>
+							</table>
+
+                        </div>
+                    </div>
+                         <div  class="mt-2" th:if="${users.totalPages > 1}">
+			    <ul class="pagination">
+			        <li th:class="${users.first} ? 'disabled'">
+			            <a th:href="@{/adminDashboard/users(page=${users.number - 1})}" th:if="${!users.first}">Précédent</a>
+			        </li>
+			        <li th:each="pageNumber : ${#numbers.sequence(0, users.totalPages - 1)}" th:class="${pageNumber == users.number} ? 'active'">
+			            <a th:href="@{/adminDashboard/users(page=${pageNumber})}">[[${pageNumber + 1}]]</a>
+			        </li>
+			        <li th:class="${users.last} ? 'disabled'">
+			            <a th:href="@{/adminDashboard/users(page=${users.number + 1})}" th:if="${!users.last}">Suivant</a>
+			        </li>
+			    </ul>
+			</div>
+                </div>
+            </div>
+           
+    </div>
+
+    <!-- Incluez vos scripts personnalisés ici si nécessaire -->
+    <!-- Exemple : -->
+    <script th:src="@{/js/users.js}"></script>
+    <!-- Placez ce code JavaScript dans votre vue -->
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de la Pénalité</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div th:replace="fragments/sidemenuUser :: sidemenuUser"></div>
+    <div th:replace="fragments/topmenu :: topmenu"></div>
+    <div class="container mt-5 offset-3">
+        <h2 class="mb-4"><i class="fas fa-exclamation-circle"></i> Détails de la Pénalité</h2>
+        <div class="row">
+            <div class="col-md-6">
+               
+                <p><span class="info-label">ID de la Pénalité:</span> <span th:text="${penalite.id}"></span></p>
+                <p><span class="info-label">Retour Associé:</span> <span th:text="${penalite.retour.id}"></span></p>
+                <p><span class="info-label">Montant:</span> <span th:text="${penalite.montant}"></span></p>
+                <p><span class="info-label">Statut Pénalité:</span> <span th:text="${penalite.statutPenalite}"></span></p>
+                <!-- Informations sur l'emprunt -->
+                <p><span class="info-label">Emprunt:</span> <span th:text="${penalite.retour.emprunt.id}"></span></p>
+                <p><span class="info-label">Livre:</span> <span th:text="${penalite.retour.emprunt.livre.title}"></span></p>
+                <p><span class="info-label">Utilisateur:</span> <span th:text="${penalite.retour.emprunt.user.username}"></span></p>
+               <p><span class="info-label">Date Prévue:</span> <span th:text="${#dates.format(penalite.retour.emprunt.dateRetourPrevu, 'yyyy-MM-dd')}"></span></p>
+<p><span class="info-label">Date de Retour Effectif:</span> <span th:text="${#dates.format(penalite.retour.dateRetourEffectif, 'yyyy-MM-dd')}"></span></p>
+
+              
+                <a href="/userDashboard/penalites" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Retour</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmer le Paiement</title>
+    <!-- Inclure vos feuilles de style CSS et vos bibliothèques JavaScript ici -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <style>
+        .form-group label {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            font-size: 0.9rem;
+            padding: 0.375rem 0.75rem;
+            max-width: 400px; /* Ajoutez cette ligne pour limiter la largeur des champs de saisie */
+        }
+
+        .container {
+            max-width: 600px; /* Ajustez cette valeur pour contrôler la largeur du conteneur principal */
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="fragments/sidemenu :: sidemenu"></div>
+    <div th:replace="fragments/topmenu :: topmenu"></div>
+    <div class="container offset-3">
+        <h2 class="mb-4"><i class="fas fa-money-bill-wave"></i> Confirmer le Paiement</h2>
+        <form th:action="@{/adminDashboard/penalites/payer}" th:object="${penalite}" method="post">
+            <div class="form-group">
+                <label for="id">ID de la Pénalité:</label>
+                <input type="text" class="form-control" id="id" th:field="*{id}" readonly>
+            </div>
+             <div class="form-group">
+                <label for="id">ID du Retour :</label>
+                <input type="text" class="form-control" id="id"  th:field="${penalite.retour.id}" readonly>
+            </div>
+        
+             <div class="form-group">
+                <label for="id">Nom de l'utilisateur :</label>
+                <input type="text" class="form-control" id="id" th:field="${penalite.retour.emprunt.user.username}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="montant">Montant:</label>
+                <input type="number" class="form-control" id="montant" th:field="*{montant}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="statutPenalite">Statut de la Pénalité:</label>
+                <input type="text" class="form-control" id="statutPenalite" th:field="*{statutPenalite}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="montantPaiement">Montant du Paiement:</label>
+                <input type="number" class="form-control" id="montantPaiement" name="montantPaiement" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Confirmer le Paiement</button>
+        </form>
+    </div>
+</body>
+</html>

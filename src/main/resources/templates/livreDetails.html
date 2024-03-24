@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du livre</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .book-container {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+        .book-image {
+            width:200px;
+            margin-right: 20px;
+        }
+        .book-info {
+            flex: 1;
+        }
+        .book-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .book-authors,
+        .book-description {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="fragments/sidemenu :: sidemenu"></div>
+    <div th:replace="fragments/topmenu :: topmenu"></div>
+    <div class="container">
+       <h2 class="text-center mb-4">Détails du livre : <span th:text="${livre.title}"></span></h2>
+
+        <div class="book-container">
+            <div class="book-info offset-2">
+                <p>Description: <span th:text="${livre.description}"></span></p>
+            </div>
+            <img th:src="@{'/adminDashboard/livres/image/' + ${livre.id}}" class="book-image" alt="Book Image"/>
+            <div class="book-info">
+                <h3 class="book-title">Titre:<span th:text="${livre.title}"></span></h3>
+                <p class="book-authors">Auteur: <span th:text="${livre.author}"></span></p>
+                <p class="book-authors">Éditeur: <span th:text="${livre.editeur}"></span></p>
+                <p class="book-authors">ISBN: <span th:text="${livre.ISBN}"></span></p>
+                <p class="book-authors">Date de publication: <span th:text="${#dates.format(livre.publicationDate, 'yyyy-MM-dd')}"></span></p>
+                <p class="book-authors">Genre: <span th:text="${livre.genre}"></span></p>
+                <p class="book-description">Nombre de copies disponibles: <span th:text="${livre.availableCopies}"></span></p>
+                <p class="book-authors">Catégorie: <span th:text="${livre.category.name}"></span></p>
+                <p class="book-authors">Nombre de pages: <span th:text="${livre.nombrePages}"></span></p>
+            </div>
+                     
+        </div>
+          <button type="button" class="btn btn-secondary offset-4" onclick="window.history.back();"><i class="fas fa-undo"></i> Retour</button>
+    </div>
+</body>
+</html>

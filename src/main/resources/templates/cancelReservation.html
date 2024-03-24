@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmer l'Annulation</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Votre CSS personnalisé -->
+    <style>
+    body {
+        background-color: #f8d7da; /* Fond rouge clair */
+        font-family: Arial, sans-serif;
+    }
+
+    .confirm-message {
+        background-color: #f5c6cb; /* Fond rouge clair */
+        color: #721c24; /* Couleur du texte */
+        padding: 20px;
+        margin-top: 50px;
+        border-radius: 5px;
+        width: 50%; /* Largeur du fond */
+        margin: auto; /* Centrer le fond horizontalement */
+        text-align: center; /* Centrer le texte */
+    }
+
+    .confirm-buttons {
+        margin-top: 20px; /* Marge en haut des boutons */
+        display: flex; /* Utiliser flexbox pour centrer les boutons */
+        justify-content: center; /* Centrer les boutons horizontalement */
+    }
+
+    .btn {
+        margin: 0 10px; /* Marge entre les boutons */
+    }
+</style>
+
+</head>
+<body>
+    <div th:replace="fragments/sidemenu :: sidemenu"></div>
+    <div th:replace="fragments/topmenu :: topmenu"></div>
+
+    <div class="col-md-9 mt-5 offset-2">
+        <!-- Contenu principal ici -->
+        <div class="confirm-message">
+            <h2>Confirmer l'annulation de la réservation ?</h2>
+            <form action="/adminDashboard/reservations/cancel/confirm" method="post">
+                <input type="hidden" name="id" th:value="${reservation.id}" />
+                <div class="confirm-buttons">
+                    <button type="submit" class="btn btn-danger fas fa-check"> Oui</button>
+                    <a href="/adminDashboard/reservations" class="btn btn-secondary fas fa-times">Annuler</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

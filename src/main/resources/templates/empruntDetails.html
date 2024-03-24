@@ -1,0 +1,60 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retourner un livre</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+        .form-group label {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            font-size: 0.9rem;
+            padding: 0.375rem 0.75rem;
+            max-width: 400px; /* Ajoutez cette ligne pour limiter la largeur des champs de saisie */
+        }
+
+        .container {
+            max-width: 600px; /* Ajustez cette valeur pour contrôler la largeur du conteneur principal */
+        }
+    </style>
+</head>
+<body>
+  <div th:replace="fragments/sidemenu :: sidemenu"></div>
+    <div th:replace="fragments/topmenu :: topmenu"></div>
+    <div class="container offset-3">
+        <h2><i class="fas fa-book-open"></i> Retourner un livre</h2>
+       <form method="post" th:action="@{/adminDashboard/emprunts/return/{id}(id=${emprunt.id})}">
+          
+			                  <div class="form-group">
+			                <label for="livreTitle"><i class="fas fa-book"></i> Titre du livre</label>
+			                <input type="text" class="form-control" id="livreTitle" name="livreTitle" th:value="${emprunt.livre.title}" readonly>
+			            </div>
+			            <div class="form-group">
+			                <label for="userName"><i class="fas fa-user"></i> Nom de l'utilisateur</label>
+			                <input type="text" class="form-control" id="userName" name="userName" th:value="${emprunt.user.username}" readonly>
+			            </div>
+			            <div class="form-group">
+			                <label for="dateRetourPrevu"><i class="fas fa-calendar-alt"></i> Date de retour prévue</label>
+			                <input type="date" class="form-control" id="dateRetourPrevu" name="dateRetourPrevu" th:value="${#dates.format(emprunt.dateRetourPrevu, 'yyyy-MM-dd')}" readonly>
+			            </div>
+			           <div class="form-group">
+			    <label for="dateRetourEffectif"><i class="fas fa-calendar-check"></i> Date de retour effectif</label>
+			    <input type="date" class="form-control" id="dateRetourEffectif" name="dateRetourEffectif" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" >
+			</div>
+
+            <div class="form-group">
+                <label for="note"><i class="fas fa-star"></i> Note</label>
+                <input type="number" class="form-control" id="note" name="note" min="1" max="5" required>
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-undo"></i> Enregistrer le retour</button>
+            <a href="/adminDashboard/retours" class="btn btn-secondary"><i class="fas fa-times"></i> Annuler</a>
+        </form>
+    </div>
+ 
+</body>
+</html>

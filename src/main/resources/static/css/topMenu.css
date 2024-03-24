@@ -1,0 +1,52 @@
+
+.top-menu {
+    display: flex;
+    justify-content: flex-end; 
+    align-items: center;
+    background-color: #555;
+    color: #fff; 
+    padding: 10px; 
+}
+
+
+.user-profile {
+    margin-right: 20px; 
+    display: flex;
+    align-items: center;
+}
+
+.user-profile i {
+    font-size: 24px; 
+    margin-right: 5px;
+}
+
+.menu-items {
+    list-style-type: none; 
+    margin: 0;
+    padding: 0;
+}
+
+.menu-items li {
+    display: inline-block; 
+    margin-right: 20px; 
+}
+
+.menu-items li a {
+    color: #fff; 
+    text-decoration: none; 
+}
+
+.menu-items li a:hover {
+    text-decoration: underline; 
+}
+
+.profile-info {
+    display: none; 
+    position: absolute; 
+    top: 40px; 
+    right: 10px; 
+    background-color: #fff; 
+    border: 1px solid #ccc;
+    padding: 10px; 
+    z-index: 1; 
+}

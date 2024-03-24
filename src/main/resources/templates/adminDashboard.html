@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Include your CSS stylesheets and JavaScript libraries here -->
+    <!-- Example: -->
+    <link rel="stylesheet" th:href="@{/css/adminDashboard.css}" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+</head>
+<body>
+ <div th:replace="fragments/sidemenu :: sidemenu"></div>
+ <div th:replace="fragments/topmenu :: topmenu"></div>
+
+ 
+    <div class="content">
+        <div class="container mt-5">
+            <h1 class="offset-3">Welcome to the Admin Dashboard</h1>
+            <!-- Add your dashboard content here -->
+           <div th:replace="fragments/toptiles :: toptiles"></div>
+       
+        </div>
+    </div>
+
+    <!-- Include your custom scripts here -->
+    <!-- Example: -->
+    <script th:src="@{/js/adminDashboard.js}"></script>
+  
+</body>
+</html>

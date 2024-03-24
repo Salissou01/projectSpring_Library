@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Notifications</title>
+    <!-- Ajoutez Bootstrap CSS pour le style -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Ajoutez des styles personnalisés en ligne ou dans une balise <style> -->
+    <style>
+        .notification-item {
+            margin-bottom: 10px;
+        }
+        .notification-message {
+            font-size: 16px;
+            color: #333;
+        }
+        .notification-unread {
+            font-weight: bold;
+            color: #007bff;
+        }
+         .notification-item p {
+        flex-grow: 1; /* Permet à l'élément <p> de s'étendre pour occuper l'espace disponible */
+        margin-right: 10px; /* Ajoute un peu d'espace entre le message et l'icône de suppression */
+    }
+    </style>
+</head>
+<body>
+	 <div th:replace="fragments/sidemenuUser :: sidemenuUser"></div>
+    <div th:replace="fragments/topmenu :: topmenu"></div>
+    <div class="container offset-3">
+        <h1 class="my-4">Notifications</h1>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Notifications</h5>
+                <ul class="list-group list-group-flush">
+			            <li th:each="notification : ${notifications}" class="list-group-item notification-item d-flex justify-content-between align-items-center">
+    <p th:class="${notification.read ? '' : 'notification-unread'}" th:text="${notification.message}"></p>
+    <form th:action="@{/userDashboard/notifications/delete/{id}(id=${notification.id})}" method="post">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit" class="btn btn-link text-danger notification-delete">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+    </form>
+</li>
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Ajoutez Bootstrap JS et jQuery pour les interactions dynamiques -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <!-- Ajoutez votre propre JavaScript pour des interactions personnalisées -->
+    <script src="/js/script.js"></script>
+</body>
+</html>

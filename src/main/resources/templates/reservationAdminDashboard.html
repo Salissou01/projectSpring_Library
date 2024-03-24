@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Réservations</title>
+   
+    <link rel="stylesheet" th:href="@{/css/reservation.css}" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+      
+        .pagination {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .pagination li {
+            margin: 0 5px;
+        }
+
+        .pagination li a {
+            text-decoration: none;
+            color: #333;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .pagination li a:hover {
+            background-color: #f1f1f1;
+        }
+
+    
+        .pagination li.active a {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+
+     
+        .pagination li.disabled a {
+            color: #ccc;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div th:replace="fragments/sidemenu :: sidemenu"></div>
+    <div th:replace="fragments/topmenu :: topmenu"></div>
+    <div class="content">
+        <div class="container mt-3">
+            <h1 class="offset-5">Liste des Réservations</h1>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control offset-8" id="searchInput" placeholder="Rechercher une réservation...">
+            </div>
+         
+<div class="mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <table id="reservationsTable" class="table table-bordered">
+									  <div class="row  offset-9">
+                <div class="col-md-12">
+                    <a href="/adminDashboard/reservations/add" class="btn btn-primary"><i class="fas fa-plus"></i> Nouvelle reservation</a>
+                </div>
+            </div>
+                    
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Livre</th>
+                            <th>Utilisateur</th>
+                            <th>Date de Réservation</th>
+                            <th>Statut</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="reservation : ${reservations}">
+                            <td th:text="${reservation.id}"></td>
+                            <td th:text="${reservation.livre.title}"></td>
+                            <td th:text="${reservation.user.username}"></td>
+                            <td th:text="${reservation.date}"></td>
+                            <td th:text="${reservation.statut}"></td>
+                            <td>
+                                <span th:if="${reservation.statut.name() == 'EN_ATTENTE'}">
+                                    <a th:href="@{/adminDashboard/reservations/validate/confirm/{id}(id=${reservation.id})}" title="Valider"><i class="fas fa-check"></i></a>
+                                     
+                                </span>
+                                <span th:if="${reservation.statut.name() != 'ANNULE'}">
+
+                                <a th:href="@{/adminDashboard/reservations/cancel/confirm/{id}(id=${reservation.id})}" title="Annuler"><i class="fas fa-times"></i></a>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="mt-2" th:if="${reservations.totalPages > 1}">
+                <ul class="pagination">
+                    <li th:class="${reservations.first} ? 'disabled'">
+                        <a th:href="@{/adminDashboard/reservations(page=${reservations.number - 1})}" th:if="${!reservations.first}">Précédent</a>
+                    </li>
+                    <li th:each="pageNumber : ${#numbers.sequence(0, reservations.totalPages - 1)}" th:class="${pageNumber == reservations.number} ? 'active'">
+                        <a th:href="@{/adminDashboard/reservations(page=${pageNumber})}">[[${pageNumber + 1}]]</a>
+                    </li>
+                    <li th:class="${reservations.last} ? 'disabled'">
+                        <a th:href="@{/adminDashboard/reservations(page=${reservations.number + 1})}" th:if="${!reservations.last}">Suivant</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    const reservationsTable = document.getElementById('reservationsTable');
+    const tableRows = reservationsTable.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+    searchInput.addEventListener('keyup', function() {
+        const searchValue = searchInput.value.toLowerCase();
+
+        for (let i = 0; i < tableRows.length; i++) {
+            const row = tableRows[i];
+            const rowText = row.textContent.toLowerCase();
+
+            if (rowText.includes(searchValue)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        }
+    });
+});
+
+</script>
+  
+</body>
+</html>
