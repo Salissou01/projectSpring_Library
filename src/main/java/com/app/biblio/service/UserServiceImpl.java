@@ -23,7 +23,10 @@ public class UserServiceImpl implements UserService {
     public User findById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
-
+    @Override
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
     @Override
     public User findByUsername(String username) {
         return userRepository.findByUsername(username); 

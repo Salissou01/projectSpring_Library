@@ -1,0 +1,21 @@
+version: '3'
+services:
+ app:
+    build: .
+    image: spring-app
+    ports:
+      - "9798:9498"
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/biblio
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: my-secret-pw
+
+ mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+      MYSQL_DATABASE: biblio
+    ports:
+      - "3306:3306"

@@ -26,5 +26,7 @@ public interface UserService {
 	User findByCin(String cin);
 
 	List<User> getUsersByRole(String roleName);
+
+	boolean existsByUsername(String username);
     
 }
