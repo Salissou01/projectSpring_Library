@@ -4,7 +4,7 @@ services:
     build: .
     image: spring-app
     ports:
-      - "9798:9498"
+      - "9798:9798"
     depends_on:
       - mysql
     environment:
@@ -19,3 +19,14 @@ services:
       MYSQL_DATABASE: biblio
     ports:
       - "3306:3306"
+
+ phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "9499:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: my-secret-pw
+    depends_on:
+      - mysql

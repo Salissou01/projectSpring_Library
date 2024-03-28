@@ -14,6 +14,4 @@ public class JwtResponse {
         this.token = token;
     }
 
-    // Getters and setters
-    // You can generate them automatically using your IDE or write them manually
 }

@@ -1,0 +1,21 @@
+# Utiliser une image de base MySQL
+FROM mysql:8.0
+
+# Définir le répertoire de travail dans le conteneur
+WORKDIR /docker-entrypoint-initdb.d
+
+# Copier les scripts SQL ou les fichiers de configuration dans le conteneur
+# COPY ./your-sql-scripts.sql /docker-entrypoint-initdb.d/
+
+# Définir les variables d'environnement pour la configuration de la base de données
+ENV MYSQL_ROOT_PASSWORD=rootpassword
+ENV MYSQL_DATABASE=mydatabase
+ENV MYSQL_USER=myuser
+ENV MYSQL_PASSWORD=mypassword
+
+# Exposer le port MySQL
+EXPOSE 3306
+
+# Commande pour démarrer MySQL
+CMD ["mysqld"]
+
