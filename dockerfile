@@ -27,7 +27,3 @@ EXPOSE 9498
 ENTRYPOINT ["java","-jar","/app/app.jar"]
 
 
-# Utilisez des variables d'environnement pour configurer la connexion à la base de données
-ENV SPRING_DATASOURCE_URL=jdbc:mysql://${MYSQL_HOST}:3306/${MYSQL_DATABASE}
-ENV SPRING_DATASOURCE_USERNAME=${MYSQL_USER}
-ENV SPRING_DATASOURCE_PASSWORD=${MYSQL_PASSWORD}
