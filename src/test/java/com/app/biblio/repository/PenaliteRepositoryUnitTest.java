@@ -29,7 +29,7 @@ public class PenaliteRepositoryUnitTest {
         Long id = 1L;
         Penalite expectedPenalite = new Penalite();
         expectedPenalite.setId(id);
-        // Ajoutez ici la logique pour initialiser les associations de expectedPenalite
+        
 
         when(penaliteRepository.findByIdWithAssociations(id)).thenReturn(Optional.of(expectedPenalite));
 
@@ -39,6 +39,6 @@ public class PenaliteRepositoryUnitTest {
         // Then
         assertThat(actualPenalite).isPresent();
         assertThat(actualPenalite.get()).isEqualTo(expectedPenalite);
-        // Vous pouvez ajouter des assertions supplémentaires pour vérifier les associations chargées
+        
     }
 }

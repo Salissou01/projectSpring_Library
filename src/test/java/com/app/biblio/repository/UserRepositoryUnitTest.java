@@ -23,7 +23,7 @@ public class UserRepositoryUnitTest {
         String username = "testUser";
         User expectedUser = new User();
         expectedUser.setUsername(username);
-        // Ajoutez ici la logique pour initialiser expectedUser si nécessaire
+        
 
         when(userRepository.findByUsername(username)).thenReturn(expectedUser);
 

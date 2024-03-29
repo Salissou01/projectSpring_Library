@@ -38,14 +38,13 @@ public class UserServiceIntegrationTest {
         User user = new User();
         user.setUsername("testUser");
         user.setPassword("testPassword");
-        userService.save(user); // Sauvegardez l'utilisateur pour obtenir un ID
+        userService.save(user); 
 
-        // Mise à jour des informations de l'utilisateur
         user.setUsername("updatedUsername");
         user.setPassword("updatedPassword");
         user.setEmail("updated@example.com");
         user.setTelephone("1234567890");
-        // Ajoutez ici la logique pour initialiser d'autres attributs si nécessaire
+        
 
         // Execute
         User updatedUser = userService.update(user);

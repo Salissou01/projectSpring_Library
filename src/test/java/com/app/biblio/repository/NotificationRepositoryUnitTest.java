@@ -22,7 +22,7 @@ public class NotificationRepositoryUnitTest {
     public void testCountByUserAndReadFalse() {
         // Given
         User user = new User();
-        // Ajoutez ici la logique pour initialiser user si nécessaire
+        
 
         int expectedCount = 5;
 

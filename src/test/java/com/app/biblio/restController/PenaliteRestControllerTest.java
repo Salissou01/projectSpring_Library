@@ -71,7 +71,7 @@ public class PenaliteRestControllerTest {
         // Setup
         String cin = "123456789";
         Penalite penalite = new Penalite();
-        // Configurez l'objet Penalite selon les besoins de votre test
+    
         List<Penalite> penalites = Arrays.asList(penalite);
         Page<Penalite> penalitePage = new PageImpl<>(penalites);
         when(penaliteService.getAllPenaliteByCin(cin, Pageable.unpaged())).thenReturn(penalitePage);

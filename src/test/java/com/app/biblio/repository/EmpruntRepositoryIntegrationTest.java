@@ -24,7 +24,7 @@ public class EmpruntRepositoryIntegrationTest {
     private UserRepository userRepository;
     @BeforeEach
     public void setUp() {
-        // Insérer un utilisateur avec l'identifiant 1 dans la base de données de test
+      
         User user = new User();
         user.setId(1L);
         userRepository.save(user);

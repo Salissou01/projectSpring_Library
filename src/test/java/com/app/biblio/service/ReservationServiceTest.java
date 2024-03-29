@@ -48,7 +48,6 @@ public class ReservationServiceTest {
         Pageable pageable = PageRequest.of(0, 10);
         Page<Reservation> expectedPage = new PageImpl<>(reservations);
 
-        // Utilisez la méthode existante pour récupérer les réservations par CIN et pagination
         when(reservationRepository.findByUserCIN(cin, pageable)).thenReturn(expectedPage);
 
         // Execute

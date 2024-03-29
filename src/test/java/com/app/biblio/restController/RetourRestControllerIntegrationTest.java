@@ -68,7 +68,7 @@ public class RetourRestControllerIntegrationTest {
         // Setup
         Long retourId = 1L;
         Retour retour = new Retour();
-        // Initialisez le retour avec des données fictives
+      
         retour.setId(retourId);
         retour.setStatutRetour(StatutRetour.EN_ATTENTE);
         
@@ -77,7 +77,7 @@ public class RetourRestControllerIntegrationTest {
         
         retour.setEmprunt(emprunt);
         
-        // Simulez le comportement de la méthode findById
+  
         when(retourService.findById(retourId)).thenReturn(retour);
 
         // Execute and Verify
@@ -85,7 +85,7 @@ public class RetourRestControllerIntegrationTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string("La date de retour effectif ou la date de retour prévue est manquante.")); // Modifiez le message d'erreur attendu
 
-        // Verify that the service method is called
+        // Verify 
         verify(retourService).findById(retourId);
     }
 

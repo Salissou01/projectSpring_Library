@@ -41,7 +41,7 @@ public class LivreServiceTest {
         livres.add(livre1);
         livres.add(livre2);
 
-        // Configuration du comportement attendu du repository
+       
         when(livreRepository.findAll()).thenReturn(livres);
 
         // Exécution
@@ -58,7 +58,7 @@ public class LivreServiceTest {
         Livre livre = new Livre();
         livre.setId(livreId);
 
-        // Configuration du comportement attendu du repository
+        
         when(livreRepository.findById(livreId)).thenReturn(Optional.of(livre));
 
         // Exécution

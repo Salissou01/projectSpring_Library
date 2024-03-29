@@ -42,14 +42,14 @@ public class UserServiceImplIntegrationTest {
         user.setUsername("admin");
         user.setPassword("password");
 
-        // Create ROLE_ADMIN
+   
         Role adminRole = new Role();
         adminRole.setName("ROLE_ADMIN");
 
-        // Save the Role entity
+    
         Role savedRole = roleService.save(adminRole);
 
-        // Associate the saved Role with the user
+    
         Set<Role> roles = new HashSet<>();
         roles.add(savedRole);
         user.setRoles(roles);

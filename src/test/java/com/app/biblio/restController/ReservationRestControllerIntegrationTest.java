@@ -61,7 +61,7 @@ public class ReservationRestControllerIntegrationTest {
         reservation.setId(reservationId);
         reservation.setStatut(StatutReservation.EN_ATTENTE);
 
-        // Mocking service method calls
+  
         when(reservationService.findById(reservationId)).thenReturn(reservation);
 
         // Execute

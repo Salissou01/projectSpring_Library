@@ -41,7 +41,7 @@ public class RecommendationServiceTest {
         expectedRecommendations.put(livre1, 4.5);
         expectedRecommendations.put(livre2, 4.0);
 
-        // Définir le comportement attendu lors de l'appel à la méthode recommendBooksBasedOnRatings
+        
         when(recommendationService.recommendBooksBasedOnRatings()).thenReturn(expectedRecommendations);
 
         // Exécution

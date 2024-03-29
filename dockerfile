@@ -21,7 +21,7 @@ WORKDIR /app
 COPY --from=build /app/target/Projet-Final-Spring_v1.0-0.0.1-SNAPSHOT.jar /app/app.jar
 
 # Exposer le port sur lequel l'application sera accessible
-EXPOSE 9498
+EXPOSE 9798
 
 # Commande pour exécuter l'application
 ENTRYPOINT ["java","-jar","/app/app.jar"]

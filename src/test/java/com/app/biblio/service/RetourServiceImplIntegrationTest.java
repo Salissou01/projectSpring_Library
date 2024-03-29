@@ -60,13 +60,13 @@ public class RetourServiceImplIntegrationTest {
         empruntRepository.save(emprunt2);
 
         Retour retour1 = new Retour();
-        retour1.setEmprunt(emprunt1); // Assurez-vous que emprunt1 est sauvegardé avant
-        retour1.setStatutRetour(StatutRetour.EN_ATTENTE); // Initialisez statutRetour
+        retour1.setEmprunt(emprunt1); 
+        retour1.setStatutRetour(StatutRetour.EN_ATTENTE); 
         retourRepository.save(retour1);
 
         Retour retour2 = new Retour();
-        retour2.setEmprunt(emprunt2); // Assurez-vous que emprunt2 est sauvegardé avant
-        retour2.setStatutRetour(StatutRetour.A_L_HEURE); // Initialisez statutRetour
+        retour2.setEmprunt(emprunt2); 
+        retour2.setStatutRetour(StatutRetour.A_L_HEURE); 
         retourRepository.save(retour2);
 
         // Execute
@@ -82,19 +82,19 @@ public class RetourServiceImplIntegrationTest {
     public void testGetAllRetour() {
         // Setup
         Emprunt emprunt1 = new Emprunt();
-        empruntRepository.save(emprunt1); // Assurez-vous que emprunt1 est sauvegardé avant
+        empruntRepository.save(emprunt1); 
 
         Retour retour1 = new Retour();
-        retour1.setEmprunt(emprunt1); // Initialisez emprunt
-        retour1.setStatutRetour(StatutRetour.A_L_HEURE); // Initialisez statutRetour
+        retour1.setEmprunt(emprunt1); 
+        retour1.setStatutRetour(StatutRetour.A_L_HEURE);
         retourRepository.save(retour1);
 
         Emprunt emprunt2 = new Emprunt();
-        empruntRepository.save(emprunt2); // Assurez-vous que emprunt2 est sauvegardé avant
+        empruntRepository.save(emprunt2); 
 
         Retour retour2 = new Retour();
-        retour2.setEmprunt(emprunt2); // Initialisez emprunt
-        retour2.setStatutRetour(StatutRetour.A_L_HEURE); // Initialisez statutRetour
+        retour2.setEmprunt(emprunt2); 
+        retour2.setStatutRetour(StatutRetour.A_L_HEURE); 
         retourRepository.save(retour2);
 
         // Execute

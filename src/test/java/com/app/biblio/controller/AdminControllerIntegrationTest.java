@@ -3,16 +3,12 @@ package com.app.biblio.controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.doReturn;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
 
 import java.util.Date;
 
@@ -21,16 +17,16 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.MockMvc;
+
 import org.springframework.ui.Model;
 
 import com.app.biblio.bean.Emprunt;
 import com.app.biblio.bean.Livre;
-import com.app.biblio.bean.Reservation;
+
 import com.app.biblio.bean.User;
 import com.app.biblio.service.EmpruntService;
 import com.app.biblio.service.LivreService;
@@ -44,8 +40,7 @@ import net.minidev.json.parser.ParseException;
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 public class AdminControllerIntegrationTest {
-	  @Autowired
-	    private MockMvc mockMvc;
+	
     @Mock
     private EmpruntService empruntService;
 

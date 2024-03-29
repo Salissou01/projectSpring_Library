@@ -39,16 +39,16 @@ public class PenaliteServiceImplIntegrationTest {
     public void testFindByRetour() {
         // Setup
         Emprunt emprunt = new Emprunt();
-        // Ajoutez ici la logique pour initialiser emprunt si nécessaire
+       
         empruntRepository.save(emprunt);
 
         Retour retour = new Retour();
-        retour.setEmprunt(emprunt); // Initialiser emprunt avec une valeur valide
-        retour.setStatutRetour(StatutRetour.EN_RETARD); // Initialiser statutRetour avec une valeur valide
+        retour.setEmprunt(emprunt); 
+        retour.setStatutRetour(StatutRetour.EN_RETARD); 
         retourRepository.save(retour);
 
         Penalite penalite = new Penalite();
-        // Ajoutez ici la logique pour initialiser penalite si nécessaire
+   
         penalite.setRetour(retour);
         penalite.setMontant(new BigDecimal("10.0"));
         penalite.setStatutPenalite(StatutPenalite.NON_PAYEE); 

@@ -29,12 +29,12 @@ public class PenaliteServiceUnitTest {
     public void testFindByRetour() {
         // Given
         Retour retour = new Retour();
-        // Ajoutez ici la logique pour initialiser retour si nécessaire
+     
 
         Penalite expectedPenalite = new Penalite();
         expectedPenalite.setMontant(new BigDecimal("10.0"));
         expectedPenalite.setStatutPenalite(StatutPenalite.NON_PAYEE);
-        // Ajoutez ici la logique pour initialiser expectedPenalite si nécessaire
+       
 
         when(penaliteRepository.findByRetour(retour)).thenReturn(expectedPenalite);
 
@@ -43,6 +43,6 @@ public class PenaliteServiceUnitTest {
 
         // Then
         assertThat(actualPenalite).isEqualTo(expectedPenalite);
-        // Vous pouvez ajouter des assertions supplémentaires si nécessaire
+      
     }
 }

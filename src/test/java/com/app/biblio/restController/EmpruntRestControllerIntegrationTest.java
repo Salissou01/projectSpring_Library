@@ -58,7 +58,7 @@ public class EmpruntRestControllerIntegrationTest {
         empruntRequest.setIsbn("978-3-16-148410-0");
         empruntRequest.setNombreExemplaires(1);
 
-        // Mocking service method calls
+    
         when(userService.findByCin(empruntRequest.getCin())).thenReturn(null);
         when(livreService.findByIsbn(empruntRequest.getIsbn())).thenReturn(null);
 

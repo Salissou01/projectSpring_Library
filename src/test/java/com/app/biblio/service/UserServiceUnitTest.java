@@ -23,7 +23,7 @@ public class UserServiceUnitTest {
         Long id = 1L;
         User expectedUser = new User();
         expectedUser.setId(id);
-        // Ajoutez ici la logique pour initialiser expectedUser si nécessaire
+        
 
         when(userService.findById(id)).thenReturn(expectedUser);
 

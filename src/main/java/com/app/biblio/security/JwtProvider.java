@@ -18,16 +18,16 @@ import io.jsonwebtoken.security.Keys;
 public class JwtProvider {
 
     private static final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS512);
-    private static final long EXPIRATION_TIME = 180000; // 2 heures
+    private static final long EXPIRATION_TIME = 3600000; // 1 heures
 
     public String generateToken(String username, Long userId, List<String> roles) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + EXPIRATION_TIME);
 
         return Jwts.builder()
-                .setSubject(username) // Utilisateur
-                .claim("userId", userId) // ID de l'utilisateur
-                .claim("roles", roles) // Rôles de l'utilisateur
+                .setSubject(username) 
+                .claim("userId", userId)
+                .claim("roles", roles) 
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(SECRET_KEY)

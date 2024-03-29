@@ -33,7 +33,7 @@ public class NotificationServiceImplIntegrationTest {
         // Setup
         User user = new User();
         // Ajoutez ici la logique pour initialiser user si nécessaire
-        user = userRepository.save(user); // Sauvegardez l'utilisateur avant de créer la notification
+        user = userRepository.save(user); 
 
         String message = "Test message";
 
@@ -45,6 +45,6 @@ public class NotificationServiceImplIntegrationTest {
         assertThat(notification.getMessage()).isEqualTo(message);
         assertThat(notification.getUser()).isEqualTo(user);
 
-        // Vous pouvez ajouter des assertions supplémentaires pour vérifier d'autres attributs de notification
+        
     }
 }

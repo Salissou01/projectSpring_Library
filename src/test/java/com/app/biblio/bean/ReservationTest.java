@@ -54,5 +54,5 @@ public class ReservationTest {
         assertEquals(expectedStatut, reservation.getStatut());
     }
 
-    // Vous pouvez ajouter d'autres tests pour les autres propriétés et méthodes si nécessaire
+    
 }

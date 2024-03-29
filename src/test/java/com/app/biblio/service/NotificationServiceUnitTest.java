@@ -29,16 +29,14 @@ public class NotificationServiceUnitTest {
     public void testCreateNotification() {
         // Given
         User user = new User();
-        // Ajoutez ici la logique pour initialiser user si nécessaire
+        
 
         String message = "Test message";
 
         Notification expectedNotification = new Notification();
         expectedNotification.setUser(user);
         expectedNotification.setMessage(message);
-        // Ajoutez ici la logique pour initialiser expectedNotification si nécessaire
-
-        // Utilisez any() pour indiquer que vous vous attendez à n'importe quel argument de type Notification
+        
         when(notificationRepository.save(any(Notification.class))).thenReturn(expectedNotification);
 
         // When
@@ -46,6 +44,6 @@ public class NotificationServiceUnitTest {
 
         // Then
         assertThat(actualNotification).isEqualTo(expectedNotification);
-        // Vous pouvez ajouter des assertions supplémentaires si nécessaire
+        
     }
 }

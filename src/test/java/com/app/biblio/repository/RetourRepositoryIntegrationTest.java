@@ -33,12 +33,11 @@ public class RetourRepositoryIntegrationTest {
     @BeforeEach
     public void setUp() {
     	
-        // Insérer un utilisateur avec l'identifiant 1 dans la base de données de test
+      
         User user = new User();
         user.setId(1L);
         userRepository.save(user);
 
-        // Insérer un livre avec l'identifiant 1 dans la base de données de test
         Livre livre = new Livre();
         livre.setId(1L);
         livreRepository.save(livre);

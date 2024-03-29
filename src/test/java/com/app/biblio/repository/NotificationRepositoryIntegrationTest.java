@@ -30,10 +30,10 @@ public class NotificationRepositoryIntegrationTest {
         User user = new User();
         user.setUsername("testUser");
         user.setEmail("test@example.com");
-        // Ajoutez ici d'autres attributs nécessaires pour initialiser user
+     
         user = userRepository.save(user);
 
-        // Création et sauvegarde de notifications pour cet utilisateur
+        
         Notification notification1 = new Notification();
         notification1.setUser(user);
         notification1.setMessage("Notification 1");
@@ -52,6 +52,6 @@ public class NotificationRepositoryIntegrationTest {
         // Verify
         assertThat(notifications).isNotEmpty();
         assertThat(notifications.get(0).getCreatedAt()).isAfterOrEqualTo(notifications.get(1).getCreatedAt());
-        // Vous pouvez ajouter des assertions supplémentaires pour vérifier l'ordre des notifications
+   
     }
 }
